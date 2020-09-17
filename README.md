@@ -32,31 +32,34 @@ Things you may want to cover:
 |nickname               |string      |null: false        |
 |email                  |string      |null: false        | 
 |password               |string      |null: false        | 
-|password_confirmation  |string      |null: false        | 
 |first_name             |string      |null: false        |
 |family_name            |string      |null: false        |
 |first_name_kana        |string      |null: false        |
 |family_name_kana       |string      |null: false        | 
-|birth_day              |date        |null: false        | 
-|member_registration    |string      |null: false        |
+|birth_date             |date        |null: false        | 
 
+### Association
+- has_many :items
+- has_many :item_purchases
 
 
 ## items テーブル
 
 |Column                       |Type        |Option                        |                             
 |-----------------------------|------------|------------------------------|
-|image                        |references  |null:false                    |
 |name                         |string      |null:false                    |
 |info                         |text        |null:false                    |
-|category_select              |references  |null:false, foreign_key:true  |
-|sales_status_select          |references  |null:false, foreign_key:true  |
-|shipping_fee_status_select   |references  |null:false, foreign_key:true  |
-|prefecture_select            |references  |null:false, foreign_key:true  |
-|schduled_delivery_select     |references  |null:false, foreign_key:true  |
+|category_select_id           |integer     |null:false, foreign_key:true  |
+|sales_status_select_id       |integer     |null:false, foreign_key:true  |
+|shipping_fee_status_select_id|integer     |null:false, foreign_key:true  |
+|prefecture_select_id         |integer     |null:false, foreign_key:true  |
+|schduled_delivery_select_id  |integer     |null:false, foreign_key:true  |
 |price                        |integer     |null:false                    |
-|price_fee                    |references  |-                             |
-|sales_profit                 |references  |-                             |
+|user_id                      |references  |null:false, foreign_key:true  |                    |
+
+### Association
+- belongs_to :user
+- has_many :item_purchases
 
 
 ##  item_purchases テーブル
@@ -66,18 +69,25 @@ Things you may want to cover:
 |user_id        |references     |null:false, foreign_key:true    |
 |item_id        |references     |null:false, foreign_key:true    |
 
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
 
 ##  address テーブル
 
 |Column                 |type        |Option           |
 |-----------------------|------------|-----------------|
-|post_code              |string      |null:false       |
-|prefecture_select      |string      |null:false       |
+|post_code              |integer(7)  |null:false       |
+|prefecture_select_id   |integer     |null:false       |
 |city                   |string      |null:false       |
 |municipality           |string      |null:false       |
 |building_name          |string      |-                |
 |phone_number           |string      |null:false       |
+|buyer_id               |references  |foreign_key:true |
 
+### Association
+- belongs_to :item_purchases
 
 
