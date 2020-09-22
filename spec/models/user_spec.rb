@@ -58,6 +58,12 @@ RSpec.describe User, type: :model do
         @user.valid?
       end
 
+      it 'passwordが半角英数字混合でないと登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+      end
+
       it 'passwordが存在してもpassword_confirmationが空では登録できない' do
         @user.password_confirmation = ''
         @user.valid?
