@@ -2,14 +2,12 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
-    # binding.pry
   end
 
   describe 'ユーザー新規登録' do
     context '新規登録がうまくいくとき' do
       it '全ての値が正しく入力されていれば保存できる' do
         expect(@user).to be_valid
-        # binding.pry
       end
     end
 
