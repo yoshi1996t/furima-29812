@@ -15,4 +15,19 @@ class Item < ApplicationRecord
 
   #ジャンルの選択が「---」の時は保存できないようにする
   validates :genre_id, numericality: { other_than: 1 } 
+
+  with_options presence: true do
+    validates :image
+    validates :info
+    validates :category
+    validates :status
+    validates :postage
+    validates :presence
+    validates :schduled_delivery
+    validates :price
+
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, with: /\A[0-9]+\z/}
+  end
+
+  
 end
