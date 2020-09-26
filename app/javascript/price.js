@@ -3,12 +3,13 @@ function price() {
   const addTax = document.getElementById("add-tax-price");
   const profit = document.getElementById("profit");
 
-    itemPrice.addEventListener("keyup", () => {
+    itemPrice.addEventListener("keypress", () => {
       const value = itemPrice.value;
 
       if(300 <= value && value <= 9999999){
         let tax = value * 0.1
         let benefit = value - tax
+      // debugger
         addTax.textContent = tax;
         profit.textContent = benefit;
         
