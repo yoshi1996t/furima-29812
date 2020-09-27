@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, :birthday, presence: true 
+  validates :nickname, :birthday, presence: true
 
   validates :password, presence: true, format: { with: /(?=.*\d+.*)(?=.*[a-zA-Z]+.*)./ }
   # ユーザー本名は全角（漢字・ひらがな・カタカナ）で入力させること

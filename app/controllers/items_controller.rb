@@ -17,14 +17,13 @@ class ItemsController < ApplicationController
     end
   end
 
-
   private
+
   def item_params
-    params.require(:item).permit(:image, :name, :info, :category_id, :status_id, :postage_id,:prefecture_id, :schduled_delivery_id, :price).merge(user_id: current_user.id)
-  end 
+    params.require(:item).permit(:image, :name, :info, :category_id, :status_id, :postage_id, :prefecture_id, :schduled_delivery_id, :price).merge(user_id: current_user.id)
+  end
 
   def move_to_index
     redirect_to new_user_session_path
   end
-
 end
