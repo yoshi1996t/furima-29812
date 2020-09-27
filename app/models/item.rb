@@ -28,8 +28,7 @@ class Item < ApplicationRecord
     validates :postage
     validates :presence
     validates :schduled_delivery
-    validates :price
 
-    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, with: /\A[0-9]+\z/ }
+    validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, with: /\A[0-9]+\z/ }
   end
 end
