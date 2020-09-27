@@ -11,10 +11,14 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   #空の投稿を保存できないようにする
-  validates :category, :status, :postage, :prefecture, :schduled_delivery, presence: true
+  validates :image, :name, :info, :category, :status, :postage, :prefecture, :schduled_delivery, :price, presence: true
 
   #ジャンルの選択が「---」の時は保存できないようにする
-  validates :genre_id, numericality: { other_than: 1 } 
+  validates :category_id, numericality: { other_than: 1 }
+  validates :status_id, numericality: { other_than: 1 }
+  validates :postage_id, numericality: { other_than: 1 }
+  validates :prefecture_id, numericality: { other_than: 1 }
+  validates :schduled_delivery_id, numericality: { other_than: 1 }
 
   with_options presence: true do
     validates :image
