@@ -11,4 +11,6 @@ class User < ApplicationRecord
   validates :first_name, :family_name, presence: true, format: { with: /\A([ぁ-んァ-ン一-龥]|ー)+\z/ }
   # ユーザー本名のフリガナは全角（カタカナ）で入力させること
   validates :first_name_kana, :family_name_kana, presence: true, format: { with: /\A([ァ-ン]|ー)+\z/ }
+
+  has_many :items
 end
