@@ -1,12 +1,10 @@
 class OrderShape
   include ActiveModel::Model
-  # extend ActiveHash::Associations::ActiveRecordExtensions
 
-  # belongs_to_active_hash :prefecture
   attr_accessor :post_code, :prefecture_id, :city, :municipality, :building_name, :phone_number, :user_id, :item_id, :token
 
   # 空の投稿を保存できないようにする
-  validates :post_code, :prefecture_id, :city, :municipality, :building_name, :phone_number, :token,  presence: true
+  validates :post_code, :prefecture_id, :city, :municipality, :phone_number, :token,  presence: true
 
 
   validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"} 
