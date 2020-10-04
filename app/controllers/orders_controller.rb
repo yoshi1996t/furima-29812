@@ -12,5 +12,5 @@ class OrdersController < ApplicationController
   #   else
   #     render 
   # end
-
+テst
 end
