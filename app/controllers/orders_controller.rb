@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
-  # before_action :set_item, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
   before_action :sign_in_required, only: [:index]
-  # before_action :purchased, only: [:index]
-  # before_action :seller, only: [:index]
+  before_action :purchased, only: [:index]
+  before_action :seller, only: [:index]
+  before_action :authenticate_user!, except: [:index]
   
   def index
     @order_shape = OrderShape.new
@@ -39,9 +40,9 @@ class OrdersController < ApplicationController
     )
   end
   
-  # def set_item
-  #   @item = Item.find(params[:item_id])
-  # end
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def move_to_index
     redirect_to action: :index unless user_signed_in?
@@ -51,12 +52,12 @@ class OrdersController < ApplicationController
     redirect_to new_user_registration_path unless user_signed_in?
   end
 
-  # def purchased
-  #   redirect_to root_path  unless @item.order.blank? || current_user.id == @item.user
-  # end
+  def purchased
+    redirect_to root_path  unless @item.order.blank?
+  end
 
-  # def seller
-  #   redirect_to root_path  current_user.id == @item.user
-  # end
+  def seller
+    redirect_to root_path if current_user.id == @item.user_id
+  end
 
 end
