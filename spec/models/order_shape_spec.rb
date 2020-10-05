@@ -42,6 +42,11 @@ RSpec.describe OrderShape, type: :model do
       it 'building_nameは空でも保存できること' do
         expect(@order_shape).to be_valid
       end
+      it 'phone_numberが11桁以上では保存できないこと' do
+        @order_shape.phone_number = '000000000000'
+        @order_shape.valid?
+        expect(@order_shape.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+      end
       it 'phone_numberが11桁の半角数字でないと保存できないこと' do
         @order_shape.phone_number = 'aaaaaaaaaaa'
         @order_shape.valid?
