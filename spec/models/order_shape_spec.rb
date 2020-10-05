@@ -40,6 +40,7 @@ RSpec.describe OrderShape, type: :model do
         expect(@order_shape.errors.full_messages).to include("Municipality can't be blank")
       end
       it 'building_nameは空でも保存できること' do
+        @order_shape.building_name = nil
         expect(@order_shape).to be_valid
       end
       it 'phone_numberが11桁以上では保存できないこと' do
