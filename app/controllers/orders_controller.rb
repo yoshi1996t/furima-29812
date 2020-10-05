@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :sign_in_required, only: [:index]
   before_action :purchased, only: [:index]
   before_action :seller, only: [:index]
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
 
   def index
     @order_shape = OrderShape.new
