@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :purchased, only: [:index]
   before_action :seller, only: [:index]
   before_action :authenticate_user!, except: [:index]
-  
+
   def index
     @order_shape = OrderShape.new
   end
@@ -32,14 +32,14 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,           # 商品の値段
       card: order_params[:token],    # カードトークン
       currency: 'jpy'                # 通貨の種類（日本円）
     )
   end
-  
+
   def set_item
     @item = Item.find(params[:item_id])
   end
@@ -53,11 +53,10 @@ class OrdersController < ApplicationController
   end
 
   def purchased
-    redirect_to root_path  unless @item.order.blank?
+    redirect_to root_path unless @item.order.blank?
   end
 
   def seller
     redirect_to root_path if current_user.id == @item.user_id
   end
-
 end
