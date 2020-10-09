@@ -44,7 +44,8 @@ RSpec.describe '商品出品', type: :system do
       # トップページに遷移する
       visit root_path
       # 新規投稿ページへ遷移しようとすると新規登録画面に遷移する
-      click_on '出品する'
+      visit new_item_path
+      expect(page).to have_content('会員情報入力')
     end
   end
 end
