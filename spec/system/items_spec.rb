@@ -33,7 +33,7 @@ RSpec.describe "商品出品", type: :system do
       visit root_path
       # トップページには先ほど出品した商品の情報が存在することを確認する（画像）
       expect(page).to have_content(@item_image)
-      # トップページには先ほど投稿した内容の名前が存在することを確認する（名前と金額）
+      # トップページには先ほど投稿した内容のが存在することを確認する（名前と金額）
       expect(page).to have_content(@item_mame)
       expect(page).to have_content(@item_price)
     end
@@ -43,7 +43,8 @@ RSpec.describe "商品出品", type: :system do
     it 'ログインしていないと商品出品ページに遷移できない' do
       # トップページに遷移する
       visit root_path
-      # 新規投稿ページへのリンクがない
+      # 新規投稿ページへ遷移しようとすると新規登録画面に遷移する
+      click_on '出品する'
     end
   end
 end
@@ -141,9 +142,6 @@ RSpec.describe '商品の削除', type: :system do
       # 商品詳細ページに削除ページへのリンクがあることを確認する
       expect(page).to have_content('削除')
       # 投稿を削除するとレコードの数が1減ることを確認する
-      # expect{
-      #   find_link(:xpath, "//a[contains(@href, '/items/@item1.id']").click
-      # }.to change { Item.count }.by(-1)
       expect{
         click_on "削除"}.to change { Item.count }.by(-1)
       # トップページには商品1の変更が存在することを確認する（名前）

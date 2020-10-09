@@ -21,9 +21,6 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'last-name', with: @user.family_name
       fill_in 'first-name-kana', with: @user.first_name_kana
       fill_in 'last-name-kana', with: @user.family_name_kana
-      # expect(page).to have_select('birthday_1i', selected: '19')
-      # expect(page).to have_select('birthday', selected: '7')
-      # expect(page).to have_select('birthday', selected: '2')
       select '1996', from: 'user_birthday_1i'
       select '7', from: 'user_birthday_2i'
       select '2', from: 'user_birthday_3i'
