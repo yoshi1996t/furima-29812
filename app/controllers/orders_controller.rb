@@ -46,14 +46,12 @@ class OrdersController < ApplicationController
   def move_to_index
     redirect_to action: :index unless user_signed_in?
   end
-  
-  
+
   def purchased
     redirect_to root_path unless @item.order.blank?
   end
-  
+
   def seller
     redirect_to root_path if current_user.id == @item.user_id
   end
-
 end
