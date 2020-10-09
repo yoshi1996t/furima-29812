@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "商品出品", type: :system do
+RSpec.describe '商品出品', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
   end
-  context '出品ができる時'do
+  context '出品ができる時' do
     it 'ログインしている時' do
       # サインインする
       sign_in(@user)
@@ -26,9 +26,9 @@ RSpec.describe "商品出品", type: :system do
       select '1~2日で発送', from: 'item-scheduled-delivery'
       fill_in 'item[price]', with: @item.price
       # 送信するとItemモデルのカウントが1上がることを確認する
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change { Item.count }.by(1)
+      end.to change { Item.count }.by(1)
       # トップページに遷移することを確認する
       visit root_path
       # トップページには先ほど出品した商品の情報が存在することを確認する（画像）
@@ -39,7 +39,7 @@ RSpec.describe "商品出品", type: :system do
     end
   end
 
-  context '出品できないとき'do
+  context '出品できないとき' do
     it 'ログインしていないと商品出品ページに遷移できない' do
       # トップページに遷移する
       visit root_path
@@ -52,20 +52,20 @@ end
 RSpec.describe '商品編集', type: :system do
   before do
     @item1 = FactoryBot.create(:item)
-    @item2 = FactoryBot.create(:item, name: "hoge")
+    @item2 = FactoryBot.create(:item, name: 'hoge')
   end
   context '商品編集ができるとき' do
     it 'ログインしたユーザーは自分が出品した商品の編集ができる' do
       # 商品1を出品したユーザーでログインする
-      sign_in(@item1.user)   
-      #トップページに商品詳細ページのリンクがあるか確認する
-      expect(page).to have_content(@item1.name) 
+      sign_in(@item1.user)
+      # トップページに商品詳細ページのリンクがあるか確認する
+      expect(page).to have_content(@item1.name)
       # 商品詳細ページへ遷移する
       click_link @item1.name
       # 商品詳細ページに編集ページへのリンクがあることを確認する
       expect(page).to have_content('商品の編集')
       # 編集ページへ遷移する
-      click_on "商品の編集"
+      click_on '商品の編集'
       # すでに投稿済みの内容がフォームに入っていることを確認する
       expect(
         find('#item-name').value
@@ -74,8 +74,8 @@ RSpec.describe '商品編集', type: :system do
         find('#item-info').value
       ).to eq @item1.info
       expect(
-          find('#item-category').value
-        ).to eq @item1.category.id.to_s
+        find('#item-category').value
+      ).to eq @item1.category.id.to_s
       expect(
         find('#item-sales-status').value
       ).to eq @item1.status.id.to_s
@@ -91,9 +91,9 @@ RSpec.describe '商品編集', type: :system do
       # 商品内容を編集する
       fill_in 'item-name', with: "#{@item1.name}+変更"
       # 編集してもItemモデルのカウントは変わらないことを確認する
-      expect{
+      expect do
         find('input[name="commit"]').click
-      }.to change { Item.count }.by(0)
+      end.to change { Item.count }.by(0)
       # トップページに遷移する
       visit root_path
       # トップページには先ほど変更した内容のツイートが存在することを確認する（テキスト）
@@ -129,21 +129,22 @@ end
 RSpec.describe '商品の削除', type: :system do
   before do
     @item1 = FactoryBot.create(:item)
-    @item2 = FactoryBot.create(:item, name: "hoge")
+    @item2 = FactoryBot.create(:item, name: 'hoge')
   end
   context '商品の削除ができるとき' do
     it 'ログインしたユーザーは自らが出品した商品の削除ができる' do
       # 商品1を出品したユーザーでログインする
       sign_in(@item1.user)
-      #トップページに商品詳細ページのリンクがあるか確認する
-      expect(page).to have_content(@item1.name) 
+      # トップページに商品詳細ページのリンクがあるか確認する
+      expect(page).to have_content(@item1.name)
       # 商品詳細ページへ遷移する
       click_link @item1.name
       # 商品詳細ページに削除ページへのリンクがあることを確認する
       expect(page).to have_content('削除')
       # 投稿を削除するとレコードの数が1減ることを確認する
-      expect{
-        click_on "削除"}.to change { Item.count }.by(-1)
+      expect do
+        click_on '削除'
+      end .to change { Item.count }.by(-1)
       # トップページには商品1の変更が存在することを確認する（名前）
       expect(page).to have_content(@item1_mame)
     end
@@ -173,4 +174,3 @@ RSpec.describe '商品の削除', type: :system do
     end
   end
 end
-
